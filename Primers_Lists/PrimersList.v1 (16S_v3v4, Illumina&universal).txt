@@ -1,0 +1,4 @@
+16S_Ill_fwd	ACTCCTACGGGAGGCAGCAGT	Illumina primers IDT - v3 & v4
+16S_Ill_rev	GGACTACCAGGGTATCTAATCCTGT	Illumina primers IDT - v3 & v4
+16S_universal_fwd	AGAGTTTGATCCTGGCTCAG	Universal bacterial primers (27F)
+16S_universal_rev	TACGGCTACCTTGTTACGACTT	Universal bacterial primers (1492R)
