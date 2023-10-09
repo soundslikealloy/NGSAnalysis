@@ -1,2 +1,0 @@
-16S_ComplexUniversal_fwd	CCTAYGGGRBGCASCAG	Novogene primer (341F) - v3 & v4
-16S_ComplexUniversal_rev	GGACTACNNGGGTATCTAAT	Novogene primer (806R) - v3 & v4
