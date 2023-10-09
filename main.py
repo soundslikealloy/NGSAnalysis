@@ -20,11 +20,10 @@ get_product = ['16S ribosomal RNA']
 fwd = 'CCTAYGGGRBGCASCAG'
 rev = 'GGACTACNNGGGTATCTAAT'
 
-dict16S = dict.fromkeys(glob('gb_in\*.gb'), [])
-print(dict16S)
+dict16S = {}
 
 for file in glob('gb_in\*.gb'):
-    
+    dict16S[file] = []
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
         print('>> %s (%s), %i features' % (gb_record.description, gb_record.name, len(gb_record.features)))
         print()
@@ -40,9 +39,9 @@ for file in glob('gb_in\*.gb'):
                 
                 # get amplicons
                 t = pcr((fwd, rev), i_seq)
-                # if not any([dict16S[file].count(t.seq), dict16S[file].count(complement(t.seq))]): #(get unique amplicons)
-                dict16S[file].append(t.seq)
-                print(t.seq)                                                    # DEBUGGING
-                print()                                                         # DEBUGGING
+                if not any([dict16S[file].count(t.seq), dict16S[file].count(complement(t.seq))]): #(get unique amplicons)
+                    dict16S[file].append(t.seq)
+                    print(t.seq)                                                    # DEBUGGING
+                    print()                                                         # DEBUGGING
     # print(dict16S)
 print(dict16S)
