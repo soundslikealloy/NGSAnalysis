@@ -1,3 +1,4 @@
-gb_in/*
-fasta_out/*
+in_gb/*
+out_fasta/*
+out_misAnalysis/*
 primers/*
