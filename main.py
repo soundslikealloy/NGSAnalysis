@@ -53,7 +53,7 @@ for file in glob('gb_in\*.gb'):
     iAmpl = 0
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
-        gb_description = '> %s (%s), %i features' % (gb_record.description, gb_record.name, len(gb_record.features))
+        gb_description = ' > %s (%s), %i features' % (gb_record.description, gb_record.name, len(gb_record.features))
         print(gb_description)
         
         # Selection of 16S ribosomal RNAs
@@ -91,7 +91,7 @@ fastafile.close()
 muscle_exe = 'muscle\muscle5.1.win64.exe'
 input_sequences = fastafilename
 output_alignment = fastafilealignmentname
-print('\n>> Alignment in progres...')
+print('\n>> Alignment in progress...')
 subprocess.run([muscle_exe, '-align', input_sequences, '-output', output_alignment], shell=True, capture_output=True, text=True)
 # Sorting FASTA file
 with fasta.read(fastafilealignmentname) as f:
