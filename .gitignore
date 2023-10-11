@@ -3,3 +3,4 @@ out_fasta/*
 out_misAnalysis/*
 primers/*
 !README.txt
+!main_PrimersList.txt
