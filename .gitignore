@@ -5,3 +5,4 @@ primers/*
 in_fasta/*
 !README.txt
 !main_PrimersList.txt
+test.py
