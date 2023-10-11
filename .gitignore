@@ -2,3 +2,4 @@ in_gb/*
 out_fasta/*
 out_misAnalysis/*
 primers/*
+!README.txt
