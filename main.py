@@ -23,11 +23,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+# import warnings
+# warnings.filterwarnings("ignore")
+
 # Directories definition
 root_dir = Path(__file__).resolve().parent.parent
 
-# variables definition
-get_product = ['16S ribosomal RNA']
+# Variables definition
 dAmpl16S = {}                                                                    # Dictionary with amplicon 16S
 now = datetime.now()
 time = now.strftime("%m-%d-%Y_%H;%M;%S")
@@ -39,14 +41,23 @@ fwd = primers.readline()
 rev = primers.readline()
 primers.close()
 
+# Feature read
+featureRead = open('feature/feature.txt', 'r')
+get_product_str = featureRead.readline()
+get_product = [get_product_str]
+featureRead.close()
+
 # Max alignment score (local)
 local_count = fwd.count('A') + fwd.count('T') + fwd.count('C') + fwd.count('G') # Only count ATCG nucleotides
 
+# Fasta file creation
 fastafilename = 'out_fasta/fa (' + str(time) + ').txt'
 fastafilealignmentname = 'out_fasta/fa_alignment (' + str(time) + ').fa'
 fastafilealignmentsortname = 'out_fasta/fa_alignment_sort (' + str(time) + ').fa'
-
 fastafile = open(fastafilename, 'a')
+
+# Unique amplicon
+unique_amplicons = 0
 
 # Branch gb
 print('>> Getting amplicons from (.gb):')
@@ -55,9 +66,6 @@ for file in glob('in_gb\*.gb'):
     iAmpl = 0
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
-        gb_description = ' > %s (%s), %i features' % (gb_record.description, gb_record.name, len(gb_record.features))
-        print(gb_description)
-        
         # Selection of 16S ribosomal RNAs
         for iF in gb_record.features:
             i_product = iF.qualifiers.get('product')
@@ -76,13 +84,21 @@ for file in glob('in_gb\*.gb'):
                     t_saved = t.seq.reverse_complement()
                 else:
                     t_saved = t.seq
-                # unique amplicons here (if necessary)
+                
+                # Unique amplicons (if necessary)
+                # Lorem ipsum...
+                dAmpl16S[file].append(t_saved_unique)
                 
                 # Write amplicons to FASTA file
                 fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
-                fastafile.write(str(t_saved) + '\n')    # t_saved = t.seq
-                dAmpl16S[file].append(t_saved)            # t_saved = t.seq
-
+                fastafile.write(str(t_saved) + '\n')
+        
+        if unique_amplicons == 0:
+            gb_description = ' > %s (%s), %i copies of %s' % (gb_record.description, gb_record.name, iAmpl, get_product_str)
+        else:
+            gb_description = ' > %s (%s), %i unique copies of %s' % (gb_record.description, gb_record.name, iAmpl, get_product_str)
+        print(gb_description)
+        
 # Branch FASTA
 # Lorem ipsum...
 
