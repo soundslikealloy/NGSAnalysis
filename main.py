@@ -138,7 +138,6 @@ print('\n>> Plotting in progress...')
 file_misAnalysis = fastafilealignmentname
 
 # for file in glob('out_fasta\*.fa'):
-a = AlignIO.read(file_misAnalysis, 'fasta')
 filesave = file_misAnalysis.replace('out_fasta/', 'out_misAnalysis/')
 if unique_amplicons == 1:
     filesave = filesave.replace('fa_unique_alignment', 'mismatchTable_unique')
@@ -149,6 +148,7 @@ else:
 filesave = filesave.replace('.fa', '.txt')
 
 # Alignment dimensions
+a = AlignIO.read(file_misAnalysis, 'fasta')
 n_seq = a.__len__()                                                         # Num of sequences (rows)
 alig_len = a.get_alignment_length()                                         # Max length of alignment (columns)
 comb = np.array(list(combinations(np.arange(1, n_seq+1), 2)))
