@@ -23,14 +23,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-# import warnings
-# warnings.filterwarnings("ignore")
+import warnings
+warnings.filterwarnings("ignore")
 
 # Directories definition
 root_dir = Path(__file__).resolve().parent.parent
 
 # Variables definition
-dAmpl16S = {}                                                                    # Dictionary with amplicon 16S
 now = datetime.now()
 time = now.strftime("%m-%d-%Y_%H;%M;%S")
 aligner = Align.PairwiseAligner()
@@ -50,20 +49,28 @@ featureRead.close()
 # Max alignment score (local)
 local_count = fwd.count('A') + fwd.count('T') + fwd.count('C') + fwd.count('G') # Only count ATCG nucleotides
 
-# Fasta file creation
-fastafilename = 'out_fasta/fa (' + str(time) + ').txt'
-fastafilealignmentname = 'out_fasta/fa_alignment (' + str(time) + ').fa'
-fastafilealignmentsortname = 'out_fasta/fa_alignment_sort (' + str(time) + ').fa'
-fastafile = open(fastafilename, 'a')
+# Unique amplicons
+unique_amplicons = 1                                                            # Unique amplicons [0/1]
+if unique_amplicons == 1: dAmpl16S = {}                                         # Dictionary with amplicon 16S
 
-# Unique amplicon
-unique_amplicons = 0
+# Fasta file creation
+if unique_amplicons == 1:
+    fastafilename = 'out_fasta/fa_unique (' + str(time) + ').txt'
+    fastafilealignmentname = 'out_fasta/fa_unique_alignment (' + str(time) + ').fa'
+    fastafilealignmentsortname = 'out_fasta/fa_unique_alignment_sort (' + str(time) + ').fa'
+else:
+    fastafilename = 'out_fasta/fa (' + str(time) + ').txt'
+    fastafilealignmentname = 'out_fasta/fa_alignment (' + str(time) + ').fa'
+    fastafilealignmentsortname = 'out_fasta/fa_alignment_sort (' + str(time) + ').fa'
+
+fastafile = open(fastafilename, 'a')
 
 # Branch gb
 print('>> Getting amplicons from (.gb):')
 for file in glob('in_gb\*.gb'):
-    dAmpl16S[file] = []
+    if unique_amplicons == 1: dAmpl16S[file] = []
     iAmpl = 0
+    if unique_amplicons == 1: iAmpl_unique = 0 
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
         # Selection of 16S ribosomal RNAs
@@ -85,18 +92,29 @@ for file in glob('in_gb\*.gb'):
                 else:
                     t_saved = t.seq
                 
-                # Unique amplicons (if necessary)
-                # Lorem ipsum...
-                dAmpl16S[file].append(t_saved_unique)
-                
-                # Write amplicons to FASTA file
-                fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
-                fastafile.write(str(t_saved) + '\n')
-        
+                # Write (unique) amplicons to FASTA file
+                if unique_amplicons == 1:
+                    if not dAmpl16S[file].count(t_saved):
+                        iAmpl_unique += 1
+                        dAmpl16S[file].append(t_saved)
+                        fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
+                        fastafile.write(str(t_saved) + '\n')
+                else:   
+                    fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
+                    fastafile.write(str(t_saved) + '\n')
+        # Printing results
         if unique_amplicons == 0:
-            gb_description = ' > %s (%s), %i copies of %s' % (gb_record.description, gb_record.name, iAmpl, get_product_str)
+            if iAmpl == 1:
+                copystr = 'copy'
+            else:
+                copystr = 'copies'
+            gb_description = ' > %s (%s), %i %s of %s' % (gb_record.description, gb_record.name, iAmpl, copystr, get_product_str)
         else:
-            gb_description = ' > %s (%s), %i unique copies of %s' % (gb_record.description, gb_record.name, iAmpl, get_product_str)
+            if iAmpl_unique == 1:
+                copystr = 'copy'
+            else:
+                copystr = 'copies'
+            gb_description = ' > %s (%s), %i unique %s of %s' % (gb_record.description, gb_record.name, iAmpl_unique, copystr, get_product_str)
         print(gb_description)
         
 # Branch FASTA
@@ -122,7 +140,12 @@ file_misAnalysis = fastafilealignmentname
 # for file in glob('out_fasta\*.fa'):
 a = AlignIO.read(file_misAnalysis, 'fasta')
 filesave = file_misAnalysis.replace('out_fasta/', 'out_misAnalysis/')
-filesave = filesave.replace('fa_alignment', 'mismatchTable')
+if unique_amplicons == 1:
+    filesave = filesave.replace('fa_unique_alignment', 'mismatchTable_unique')
+    figurefilename = 'out_misAnalysis/alignmismatches_unique (' + str(time) + ').png'
+else:
+    filesave = filesave.replace('fa_alignment', 'mismatchTable')
+    figurefilename = 'out_misAnalysis/alignmismatches (' + str(time) + ').png'
 filesave = filesave.replace('.fa', '.txt')
 
 # Alignment dimensions
@@ -183,7 +206,6 @@ fig.set_figheight(n_seq)
 fig.set_figwidth(n_seq+10)
 
 # Save plot
-figurefilename = 'out_misAnalysis/alignmismatches (' + str(time) + ').png'
 fig.savefig(figurefilename)
 
 print('>> Plotting done!')
