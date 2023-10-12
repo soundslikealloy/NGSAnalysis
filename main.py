@@ -67,62 +67,113 @@ fastafile = open(fastafilename, 'a')
 
 # Branch gb
 print('>> Getting amplicons from (.gb):')
+if len(glob('in_gb\*.gb')) == 0: print(' > No GenBank - Standard files found.')
+# print(glob('in_gb\*.gb'))
 for file in glob('in_gb\*.gb'):
     if unique_amplicons == 1: dAmpl16S[file] = []
     iAmpl = 0
+    i_ITS_location = []
+    amplicon_len = []
     if unique_amplicons == 1: iAmpl_unique = 0 
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
-        # if get_product == 'Bacterial ITS region':
-            # Lorem ipsum...
-        # else: # Selection of feature's region (no ITS)
-            # ↓
-        for iF in gb_record.features:
-            i_product = iF.qualifiers.get('product')
-            if i_product == get_product:
-                iAmpl += 1
-                i_start = iF.location.nofuzzy_start
-                i_end = iF.location.nofuzzy_end
-                i_seq = gb_record.seq[i_start:i_end]
-                # i_seq_len = len(i_seq)
+        if get_product[0] == 'ITS region':
+            for iF in gb_record.features:
+                i_product = iF.qualifiers.get('product')
+                # Get 16S rRNA locations
+                if i_product == ['16S ribosomal RNA']:
+                    i_ITS_location.append(iF.location.nofuzzy_start)
+                    i_ITS_location.append(iF.location.nofuzzy_end)
+                # Get 23S rRNA locations
+                if i_product == ['23S ribosomal RNA']:
+                    i_ITS_location.append(iF.location.nofuzzy_start)
+                    i_ITS_location.append(iF.location.nofuzzy_end)
                 
-                # Get (unique) amplicons
-                t = pcr((fwd, rev), i_seq)
-                c_t = aligner.align(t.seq[0:len(fwd)-1], fwd)
-                # Flip amplicon (if necessary)
-                if c_t.score < local_count:
-                    t_saved = t.seq.reverse_complement()
-                else:
-                    t_saved = t.seq
-                
-                # Write (unique) amplicons to FASTA file
-                if unique_amplicons == 1:
-                    if not dAmpl16S[file].count(t_saved):
-                        iAmpl_unique += 1
-                        dAmpl16S[file].append(t_saved)
+                if len(i_ITS_location) == 4:
+                    iAmpl += 1
+                    # print(i_ITS_location)
+                    i_ITS_loc_start = min(i_ITS_location)
+                    i_ITS_loc_end = max(i_ITS_location)
+                    # print([i_ITS_loc_start, i_ITS_loc_end])
+                    length_ITS_loc = i_ITS_loc_end - i_ITS_loc_start
+                    # print(length_ITS_loc)
+                    if length_ITS_loc < 10000:
+                        # Get potential ITS region
+                        i_seq = gb_record.seq[i_ITS_loc_start:i_ITS_loc_end]
+                        # print(i_seq)
+                        # Get (unique) amplicons
+                        t = pcr((fwd, rev), i_seq)
+                        c_t = aligner.align(t.seq[0:len(fwd)-1], fwd)
+                        # Flip amplicon (if necessary)
+                        if c_t.score < local_count:
+                            t_saved = t.seq.reverse_complement()
+                        else:
+                            t_saved = t.seq
+                        
+                        # Write (unique) amplicons to FASTA file
+                        amplicon_len.append(len(t_saved))
+                        if unique_amplicons == 1:
+                            if not dAmpl16S[file].count(t_saved):
+                                iAmpl_unique += 1
+                                dAmpl16S[file].append(t_saved)
+                                fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
+                                fastafile.write(str(t_saved) + '\n')
+                        else:   
+                            fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
+                            fastafile.write(str(t_saved) + '\n')
+                    i_ITS_location = []
+                    length_ITS_loc = 0
+    
+        # Selection of feature's region (no ITS region)                
+        else: 
+            for iF in gb_record.features:
+                i_product = iF.qualifiers.get('product')
+                if i_product == get_product:
+                    iAmpl += 1
+                    i_start = iF.location.nofuzzy_start
+                    i_end = iF.location.nofuzzy_end
+                    i_seq = gb_record.seq[i_start:i_end]
+                    # i_seq_len = len(i_seq)
+                    
+                    # Get (unique) amplicons
+                    t = pcr((fwd, rev), i_seq)
+                    c_t = aligner.align(t.seq[0:len(fwd)-1], fwd)
+                    # Flip amplicon (if necessary)
+                    if c_t.score < local_count:
+                        t_saved = t.seq.reverse_complement()
+                    else:
+                        t_saved = t.seq
+                    
+                    # Write (unique) amplicons to FASTA file
+                    amplicon_len.append(len(t_saved))
+                    if unique_amplicons == 1:
+                        if not dAmpl16S[file].count(t_saved):
+                            iAmpl_unique += 1
+                            dAmpl16S[file].append(t_saved)
+                            fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
+                            fastafile.write(str(t_saved) + '\n')
+                    else:   
                         fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
                         fastafile.write(str(t_saved) + '\n')
-                else:   
-                    fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
-                    fastafile.write(str(t_saved) + '\n')
-        
-        # Printing results
-        if unique_amplicons == 0:
-            if iAmpl == 1:
-                copystr = 'copy'
-            else:
-                copystr = 'copies'
-            gb_description = ' > %s (%s), %i %s of %s' % (gb_record.description, gb_record.name, iAmpl, copystr, get_product_str)
+            
+    # Printing results
+    if unique_amplicons == 0:
+        if iAmpl == 1:
+            copystr = 'copy'
         else:
-            if iAmpl_unique == 1:
-                copystr = 'copy'
-            else:
-                copystr = 'copies'
-            gb_description = ' > %s (%s), %i unique %s of %s' % (gb_record.description, gb_record.name, iAmpl_unique, copystr, get_product_str)
-        print(gb_description)
+            copystr = 'copies'
+        gb_description = ' > %s (%s), %i %s of %s. Amplicon size = [%i, %i]' % (gb_record.description, gb_record.name, iAmpl, copystr, get_product_str, min(amplicon_len), max(amplicon_len))
+    else:
+        if iAmpl_unique == 1:
+            copystr = 'copy'
+        else:
+            copystr = 'copies'
+        gb_description = ' > %s (%s), %i unique %s of %s. Amplicon size = [%i, %i]' % (gb_record.description, gb_record.name, iAmpl_unique, copystr, get_product_str, min(amplicon_len), max(amplicon_len))
+    print(gb_description)
         
 # Branch FASTA
 print('\n>> Getting amplicons from (.fa):')
+if len(glob('in_fasta\*.fa')) == 0: print(' > No FASTA files found.')
 for file in glob('in_fasta\*.fa'):
     if unique_amplicons == 1: dAmpl16S[file] = []
     iAmpl = 0
