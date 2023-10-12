@@ -81,7 +81,7 @@ for file in glob('in_gb\*.gb'):
                 i_start = iF.location.nofuzzy_start
                 i_end = iF.location.nofuzzy_end
                 i_seq = gb_record.seq[i_start:i_end]
-                i_seq_len = len(i_seq)
+                # i_seq_len = len(i_seq)
                 
                 # Get (unique) amplicons
                 t = pcr((fwd, rev), i_seq)
