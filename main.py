@@ -50,7 +50,7 @@ featureRead.close()
 local_count = fwd.count('A') + fwd.count('T') + fwd.count('C') + fwd.count('G') # Only count ATCG nucleotides
 
 # Unique amplicons
-unique_amplicons = 1                                                            # Unique amplicons [0/1]
+unique_amplicons = 0                                                            # Unique amplicons [0/1]
 if unique_amplicons == 1: dAmpl16S = {}                                         # Dictionary with amplicon 16S
 
 # Fasta file creation
@@ -102,6 +102,7 @@ for file in glob('in_gb\*.gb'):
                 else:   
                     fastafile.write('>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n')
                     fastafile.write(str(t_saved) + '\n')
+        
         # Printing results
         if unique_amplicons == 0:
             if iAmpl == 1:
@@ -118,7 +119,70 @@ for file in glob('in_gb\*.gb'):
         print(gb_description)
         
 # Branch FASTA
-# Lorem ipsum...
+print('\n>> Getting amplicons from (.fa):')
+for file in glob('in_fasta\*.fa'):
+    if unique_amplicons == 1: dAmpl16S[file] = []
+    iAmpl = 0
+    if unique_amplicons == 1: iAmpl_unique = 0 
+    id_strain = str(re.findall(r'\(.*?\)', str(file)))
+    f = open(file, 'r')
+    lines = f.readlines() 
+    hre = re.compile('>(\S+)')
+
+    # Detect if 'file' is a full sequence or fwd/rev read and if a sequence is from fwd/rev
+    frre = re.compile('__')
+    outfr = frre.search(file)
+    
+    if outfr:
+        # FWD and REV read
+        # Lorem ipsum...
+        print('')
+    else:
+        # Full sequence read
+        for line in lines:
+            outh = hre.search(line)
+            if outh:     
+                iAmpl += 1
+                id_strain_saved = '>' + id_strain[3:-3] + '_' + str(iAmpl) + '\n'
+            else:
+                # Get (unique) amplicons
+                i_seq = Seq(line)
+                t = pcr((fwd, rev), i_seq)
+                c_t = aligner.align(t.seq[0:len(fwd)-1], fwd)
+                # Flip amplicon (if necessary)
+                if c_t.score < local_count:
+                    t_saved = t.seq.reverse_complement()
+                else:
+                    t_saved = t.seq
+                    
+                # Write (unique) amplicons to FASTA file
+                if unique_amplicons == 1:
+                    if not dAmpl16S[file].count(t_saved):
+                        iAmpl_unique += 1
+                        dAmpl16S[file].append(t_saved)
+                        fastafile.write(id_strain_saved)
+                        fastafile.write(str(t_saved) + '\n')
+                else:
+                    fastafile.write(id_strain_saved)
+                    fastafile.write(str(t_saved) + '\n')
+        f.close()
+        
+        # Printing results
+        fa_name = file.replace('in_fasta\\', '')
+        fa_name = fa_name.replace('.fa', '')
+        if unique_amplicons == 0:
+            if iAmpl == 1:
+                copystr = 'copy'
+            else:
+                copystr = 'copies'
+            fa_description = ' > %s, %i %s of %s' % (fa_name, iAmpl, copystr, get_product_str)
+        else:
+            if iAmpl_unique == 1:
+                copystr = 'copy'
+            else:
+                copystr = 'copies'
+            fa_description = ' > %s, %i unique %s of %s' % (fa_name, iAmpl_unique, copystr, get_product_str)
+        print(fa_description)
 
 fastafile.close()
 
