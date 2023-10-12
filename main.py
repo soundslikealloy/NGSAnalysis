@@ -73,7 +73,10 @@ for file in glob('in_gb\*.gb'):
     if unique_amplicons == 1: iAmpl_unique = 0 
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
-        # Selection of feature's region (no ITS)
+        # if get_product == 'Bacterial ITS region':
+            # Lorem ipsum...
+        # else: # Selection of feature's region (no ITS)
+            # ↓
         for iF in gb_record.features:
             i_product = iF.qualifiers.get('product')
             if i_product == get_product:
