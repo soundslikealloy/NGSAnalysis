@@ -6,3 +6,4 @@ in_fasta/*
 !README.txt
 !main_PrimersList.txt
 test.py
+in_fasta_test/*
