@@ -7,3 +7,4 @@ in_fasta/*
 test.py
 in_fasta_test/*
 feature/
+main_preITS.py
