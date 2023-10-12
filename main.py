@@ -50,7 +50,7 @@ featureRead.close()
 local_count = fwd.count('A') + fwd.count('T') + fwd.count('C') + fwd.count('G') # Only count ATCG nucleotides
 
 # Unique amplicons
-unique_amplicons = 0                                                            # Unique amplicons [0/1]
+unique_amplicons = 1                                                            # Unique amplicons [0/1]
 if unique_amplicons == 1: dAmpl16S = {}                                         # Dictionary with amplicon 16S
 
 # Fasta file creation
@@ -73,7 +73,7 @@ for file in glob('in_gb\*.gb'):
     if unique_amplicons == 1: iAmpl_unique = 0 
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
-        # Selection of 16S ribosomal RNAs
+        # Selection of feature's region (no ITS)
         for iF in gb_record.features:
             i_product = iF.qualifiers.get('product')
             if i_product == get_product:
