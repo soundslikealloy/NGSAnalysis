@@ -57,7 +57,7 @@ local_count = fwd.count('A') + fwd.count('T') + fwd.count('C') + fwd.count('G') 
 unique_amplicons = 0                                                            # Unique amplicons [0/1]
 if unique_amplicons == 1: dAmpl16S = {}                                         # Dictionary with amplicon 16S
 
-# Fasta file creation
+# FASTA file creation
 if unique_amplicons == 1:
     fastafilename = 'out_fasta/fa_unique (' + str(time) + ').txt'
     fastafilealignmentname = 'out_fasta/fa_unique_alignment (' + str(time) + ').fa'
@@ -66,13 +66,11 @@ else:
     fastafilename = 'out_fasta/fa (' + str(time) + ').txt'
     fastafilealignmentname = 'out_fasta/fa_alignment (' + str(time) + ').fa'
     fastafilealignmentsortname = 'out_fasta/fa_alignment_sort (' + str(time) + ').fa'
-
 fastafile = open(fastafilename, 'a')
 
 # Branch gb
 print('>> Getting amplicons from (.gb):')
 if len(glob('in_gb\*.gb')) == 0: print(' > No GenBank (Standard) files found.')
-# print(glob('in_gb\*.gb'))
 for file in glob('in_gb\*.gb'):
     if unique_amplicons == 1: dAmpl16S[file] = []
     iAmpl = 0
@@ -84,27 +82,23 @@ for file in glob('in_gb\*.gb'):
         if get_product[0] == 'spacer':
             for iF in gb_record.features:
                 i_product = iF.qualifiers.get('product')
-                # Get 16S rRNA locations
+                # Get front product
                 if i_product == i_product_1:
                     i_ITS_location.append(iF.location.nofuzzy_start)
                     i_ITS_location.append(iF.location.nofuzzy_end)
-                # Get 23S rRNA locations
+                # Get back product
                 if i_product == i_product_2:
                     i_ITS_location.append(iF.location.nofuzzy_start)
                     i_ITS_location.append(iF.location.nofuzzy_end)
                 
                 if len(i_ITS_location) == 4:
                     iAmpl += 1
-                    # print(i_ITS_location)
                     i_ITS_loc_start = min(i_ITS_location)
                     i_ITS_loc_end = max(i_ITS_location)
-                    # print([i_ITS_loc_start, i_ITS_loc_end])
                     length_ITS_loc = i_ITS_loc_end - i_ITS_loc_start
-                    # print(length_ITS_loc)
                     if length_ITS_loc < 10000:
                         # Get potential ITS region
                         i_seq = gb_record.seq[i_ITS_loc_start:i_ITS_loc_end]
-                        # print(i_seq)
                         # Get (unique) amplicons
                         t = pcr((fwd, rev), i_seq)
                         c_t = aligner.align(t.seq[0:len(fwd)-1], fwd)
@@ -137,7 +131,6 @@ for file in glob('in_gb\*.gb'):
                     i_start = iF.location.nofuzzy_start
                     i_end = iF.location.nofuzzy_end
                     i_seq = gb_record.seq[i_start:i_end]
-                    # i_seq_len = len(i_seq)
                     
                     # Get (unique) amplicons
                     t = pcr((fwd, rev), i_seq)
@@ -258,8 +251,6 @@ print('>> Alignment done!')
 # Alignment analysis (#mismatches)
 print('\n>> Plotting in progress...')
 file_misAnalysis = fastafilealignmentname
-
-# for file in glob('out_fasta\*.fa'):
 filesave = file_misAnalysis.replace('out_fasta/', 'out_misAnalysis/')
 if unique_amplicons == 1:
     filesave = filesave.replace('fa_unique_alignment', 'mismatchTable_unique')
@@ -268,6 +259,7 @@ else:
     filesave = filesave.replace('fa_alignment', 'mismatchTable')
     figurefilename = 'out_misAnalysis/alignmismatches (' + str(time) + ').png'
 filesave = filesave.replace('.fa', '.txt')
+
 
 # Alignment dimensions
 a = AlignIO.read(file_misAnalysis, 'fasta')
