@@ -42,15 +42,19 @@ primers.close()
 
 # Feature read
 featureRead = open('feature/feature.txt', 'r')
-get_product_str = featureRead.readline()
+get_product_str = featureRead.readline().strip()
 get_product = [get_product_str]
+if get_product_str == 'spacer':
+    print(get_product)
+    i_product_1 = [featureRead.readline().strip()]
+    i_product_2 = [featureRead.readline().strip()]
 featureRead.close()
 
 # Max alignment score (local)
 local_count = fwd.count('A') + fwd.count('T') + fwd.count('C') + fwd.count('G') # Only count ATCG nucleotides
 
 # Unique amplicons
-unique_amplicons = 1                                                            # Unique amplicons [0/1]
+unique_amplicons = 0                                                            # Unique amplicons [0/1]
 if unique_amplicons == 1: dAmpl16S = {}                                         # Dictionary with amplicon 16S
 
 # Fasta file creation
@@ -67,7 +71,7 @@ fastafile = open(fastafilename, 'a')
 
 # Branch gb
 print('>> Getting amplicons from (.gb):')
-if len(glob('in_gb\*.gb')) == 0: print(' > No GenBank - Standard files found.')
+if len(glob('in_gb\*.gb')) == 0: print(' > No GenBank (Standard) files found.')
 # print(glob('in_gb\*.gb'))
 for file in glob('in_gb\*.gb'):
     if unique_amplicons == 1: dAmpl16S[file] = []
@@ -77,15 +81,15 @@ for file in glob('in_gb\*.gb'):
     if unique_amplicons == 1: iAmpl_unique = 0 
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
-        if get_product[0] == 'ITS region':
+        if get_product[0] == 'spacer':
             for iF in gb_record.features:
                 i_product = iF.qualifiers.get('product')
                 # Get 16S rRNA locations
-                if i_product == ['16S ribosomal RNA']:
+                if i_product == i_product_1:
                     i_ITS_location.append(iF.location.nofuzzy_start)
                     i_ITS_location.append(iF.location.nofuzzy_end)
                 # Get 23S rRNA locations
-                if i_product == ['23S ribosomal RNA']:
+                if i_product == i_product_2:
                     i_ITS_location.append(iF.location.nofuzzy_start)
                     i_ITS_location.append(iF.location.nofuzzy_end)
                 
