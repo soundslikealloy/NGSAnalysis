@@ -27,7 +27,7 @@ import math
 import warnings
 warnings.filterwarnings("ignore")
 
-# Create a parser object
+# Command Line Interface (CLI)
 parser = argparse.ArgumentParser(description = 'In-silico NGS analysis for specific set of primers and sequencing region (e.g., 16S rRNA, ITS region...).')
 parser.add_argument('-unique', dest = 'unique_amplicons', default = False, action = 'store_true',
                     help = '[bool] Only the unique amplicons are considered.')
@@ -35,7 +35,6 @@ parser.add_argument('-nofig', dest = 'noFigure', default = False, action = 'stor
                     help = '[bool] No figure is generated.')
 parser.add_argument('-onlyfig', dest = 'figureOnly', default = False, action = 'store_true',
                     help = '[bool] Only figure is saved. FASTA and alingment files are not saved.')
-
 args = parser.parse_args()
 unique_amplicons = args.unique_amplicons
 noFigure = args.noFigure
