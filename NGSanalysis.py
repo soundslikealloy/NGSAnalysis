@@ -38,7 +38,7 @@ args = parser.parse_args()
 unique_amplicons = args.unique_amplicons
 noFigure = args.noFigure
 figureOnly = args.figureOnly
-    
+   
 # Directories definition
 root_dir = Path(__file__).resolve().parent.parent
 
@@ -58,7 +58,6 @@ featureRead = open('feature/feature.txt', 'r')
 get_product_str = featureRead.readline().strip()
 get_product = [get_product_str]
 if get_product_str == 'spacer':
-    print(get_product)
     i_product_1 = [featureRead.readline().strip()]
     i_product_2 = [featureRead.readline().strip()]
 featureRead.close()
