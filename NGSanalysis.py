@@ -6,7 +6,6 @@ Created on Fri Oct  6 13:38:18 2023
 """
 
 from datetime import datetime
-from pathlib import Path
 from glob import glob
 import subprocess
 import re
@@ -29,18 +28,18 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Create a parser object
-parser = argparse.ArgumentParser(description = 'In-silico NGS analysis for specific set of primers and sequencing region (e.g., 16S rRNA, ITS region...)')
-parser.add_argument('-unique', dest = 'unique_amplicons', default = False, action = 'store_true')
-parser.add_argument('-nofig', dest = 'noFigure', default = False, action = 'store_true')
-parser.add_argument('-onlyfig', dest = 'figureOnly', default = False, action = 'store_true')
+parser = argparse.ArgumentParser(description = 'In-silico NGS analysis for specific set of primers and sequencing region (e.g., 16S rRNA, ITS region...).')
+parser.add_argument('-unique', dest = 'unique_amplicons', default = False, action = 'store_true',
+                    help = '[bool] Only the unique amplicons are considered.')
+parser.add_argument('-nofig', dest = 'noFigure', default = False, action = 'store_true',
+                    help = '[bool] No figure is generated.')
+parser.add_argument('-onlyfig', dest = 'figureOnly', default = False, action = 'store_true',
+                    help = '[bool] Only figure is saved. FASTA and alingment files are not saved.')
 
 args = parser.parse_args()
 unique_amplicons = args.unique_amplicons
 noFigure = args.noFigure
 figureOnly = args.figureOnly
-   
-# Directories definition
-root_dir = Path(__file__).resolve().parent.parent
 
 # Variables definition
 now = datetime.now()
