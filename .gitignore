@@ -6,5 +6,5 @@ in_fasta/*
 !README.txt
 test.py
 in_fasta_test/*
-feature/
+feature/*
 main_preITS.py
