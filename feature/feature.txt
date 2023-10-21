@@ -1,0 +1,3 @@
+spacer
+16S ribosomal RNA
+23S ribosomal RNA

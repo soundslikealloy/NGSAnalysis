@@ -2,3 +2,9 @@ in_gb/*
 out_fasta/*
 out_misAnalysis/*
 primers/*
+in_fasta/*
+!README.txt
+test.py
+in_fasta_test/*
+feature/*
+main_preITS.py
