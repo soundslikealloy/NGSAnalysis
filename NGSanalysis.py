@@ -27,6 +27,7 @@ import math
 import warnings
 warnings.filterwarnings("ignore")
 
+# Functions
 def getPrimers():
     primers = open('primers\main_PrimersList.txt', 'r')
     fwd = primers.readline()
