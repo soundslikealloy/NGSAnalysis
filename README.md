@@ -60,4 +60,35 @@ pip install numpy
 3. Open **Anaconda Prompt or Terminal**.
 4. Go to the **Code folder<sup>2</sup>** using `cd` command (more info about [Using Terminal](https://docs.anaconda.com/ae-notebooks/user-guide/basic-tasks/apps/use-terminal/?highlight=Using%20Terminal)).
     &#09;<br><sup><sup>2</sup>Code folder: folder with `NGSanalysis.py` file. </sup>
-5. Copy your GenBank (Standard) files (_.gb_) to the `in_gb/` folder, and [FASTA files]((https://en.wikipedia.org/wiki/FASTA_format)) (_.fa_) to the `in_fasta/` folder.
+5. Copy your GenBank (Standard) files (_.gb_) to the `in_gb/` folder, and [FASTA files](https://en.wikipedia.org/wiki/FASTA_format) (_.fa_) to the `in_fasta/` folder.
+6. Select the feature that you want to test writing the name of its _/product_ in `feature/feature.txt` (be sure that it's the same as in the GenBank file). For example:
+   ```
+   16S ribosomal RNA
+   ```
+   If you want to amplify a spacer region (i.e., a region of non-coding DNA between genes), in `feature/feature.txt` write:
+   ```
+   spacer
+   Front product of spacer region
+   Back product of spacer region
+   ```
+   For example, bacterial ITS region between 16S ribosomal RNA and 23S ribosomal RNA:
+   ```
+   spacer
+   16S ribosomal RNA
+   23S ribosomal RNA
+   ```
+7. Write the primers in `primers/main_PrimersList.txt`, using the first line for the forward primer and the second line for the reverse primer. For example, Illumina primers for v3v4 of 16S ribosomal RNA:
+   ```
+   ACTCCTACGGGAGGCAGCAGT
+   GGACTACCAGGGTATCTAATCCTGT
+   ```
+8. Execute **IN-NGSa** with the command line:
+   ```
+   python NGSanalysis.py
+   ```
+   **Optional arguments**
+   -h, --help    show help message and exit.
+   -unique       [bool] Only the unique amplicons are considered in the analysis.
+   -nofig        [bool] No figure is generated.
+   -onlyfig        Only figure is saved. FASTA and alignment files are not saved.
+   
