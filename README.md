@@ -92,23 +92,23 @@ pip install numpy
    <table border="0">
        <tr><td>-h, --help</b></td><td>Show help message and optional arguments.</b></td></tr>
        <tr><td>-unique</td><td>Only unique amplicons are considered in the analysis.</td></tr>
-       <tr><td>-nofig</td><td>No figure is generated.</td></tr>
-       <tr><td>-onlyfig</td><td>Only figure is saved. FASTA and alignment files are not saved.</td></tr>
+       <tr><td>-nomismatches</td><td>No mismatches analysis is performed.</td></tr>
+       <tr><td>-onlymismatches</td><td>Only mismatches figure is saved. FASTA and alignment files are not saved.</td></tr>
    </table>
    
    ```
    python NGSanalysis.py -h
    python NGSanalysis.py -unique
-   python NGSanalysis.py -nofig
-   python NGSanalysis.py -onlyfig
-   python NGSanalysis.py -unique -onlyfig
-   python NGSanalysis.py -unique -nofig
+   python NGSanalysis.py -nomismatches
+   python NGSanalysis.py -onlymismatches
+   python NGSanalysis.py -unique -nomismatches
+   python NGSanalysis.py -unique -onlymismatches
    ```
 9. Get the results of **IN-NGSa**.
    <br>Amplicons are saved in `out_fasta\` folder as _fa (date).txt_ or _fa_unique (date).txt_.
    <br>Alignment results using MUSCLE[^1] is saved in `out_fasta\` folder as _fa_alignment (date).txt_ or _fa_unique_alignment (date).txt_.
    <br>Figure showing the mismatches between amplicons is saved in `out_misAnalysis\` folder as _alignmentmismatches (date).png_ or _alignmentmismatches_unique (date.png)_.
-   <br>Table with the number of mismatches is also saved in `out_misAnalysis\` folder as _mismatchTable (date).txt_ or _mismatchTable_unique (date).txt_.
+   <br>Table showing the number of mismatches is also saved in `out_misAnalysis\` folder as _mismatchTable (date).txt_ or _mismatchTable_unique (date).txt_.
 
 ## Contact
 
