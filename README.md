@@ -2,7 +2,9 @@
 
 *Contributors: Eloi Martinez-Rabert
 
-_Lorem ipsum..._
+_In-silico_ Next Generation Sequencing analysis (IN-NGSa) is a Python-based script that performs the simulation of Next Generation Sequencing (NGS) of a group of genomic sequencies (from whole genomes, partial genomws or only few sequences). With  In addition, it is able to examine the ability of 16S ribosomal RNA gene and ITS regions to differentiate microbes at 'species and/or strain level'. For it, the number of mismatches between the (unique) amplicons are counted as an indicator of the differentiation ability. A summarized workflow of IN-NGSa is shown below.
+
+![IN-NGSa](https://github.com/soundslikealloy/NGSAnalysis/assets/81569132/64c29b56-8e1e-4ce3-862f-36456384923a)
 ____________________________
 
 ## Before having fun...
@@ -102,3 +104,15 @@ pip install numpy
    python NGSanalysis.py -unique -onlyfig
    python NGSanalysis.py -unique -nofig
    ```
+9. Get the results of **IN-NGSa**.
+   <br>Amplicons are saved in `out_fasta\` folder as _fa (date).txt_ or _fa_unique (date).txt_.
+   <br>Alignment results using MUSCLE[^1] is saved in `out_fasta\` folder as _fa_alignment (date).txt_ or _fa_unique_alignment (date).txt_.
+   <br>Figure showing the mismatches between amplicons is saved in `out_misAnalysis\` folder as _alignmentmismatches (date).png_ or _alignmentmismatches_unique (date.png)_.
+   <br>Table with the number of mismatches is also saved in `out_misAnalysis\` folder as _mismatchTable (date).txt_ or _mismatchTable_unique (date).txt_.
+
+## Contact
+
+**Eloi Martinez-Rabert**. :envelope: martinezrabe@wisc.edu or eloi.mrp@gmail.com
+
+### References
+[^1]: Edgar, RC (2021). *Nature Reviews Microbiology*. doi: 10.1038/s41467-022-34630-w<br>
