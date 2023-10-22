@@ -4,7 +4,7 @@
 
 _In-silico_ Next Generation Sequencing analysis (IN-NGSa) is a Python-based script that performs the simulation of Next Generation Sequencing (NGS) of a group of genomic sequencies (from whole genomes, partial genomws or only few sequences). With  In addition, it is able to examine the ability of 16S ribosomal RNA gene and ITS regions to differentiate microbes at 'species and/or strain level'. For it, the number of mismatches between the (unique) amplicons are counted as an indicator of the differentiation ability. A summarized workflow of IN-NGSa is shown below.
 
-![image](https://github.com/soundslikealloy/NGSAnalysis/assets/81569132/68fc8a8b-c8f9-4892-bf3e-2aec30935b5d)
+![IN-NGSa](https://github.com/soundslikealloy/NGSAnalysis/assets/81569132/64c29b56-8e1e-4ce3-862f-36456384923a)
 ____________________________
 
 ## Before having fun...
