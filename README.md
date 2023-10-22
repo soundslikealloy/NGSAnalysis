@@ -1,4 +1,4 @@
-# _In-silico_ Next Generation Sequencing analysis. IN-NGSa
+# _In-silico_ Next Generation Sequencing analysis (IN-NGSa)
 
 *Contributors: Eloi Martinez-Rabert
 
