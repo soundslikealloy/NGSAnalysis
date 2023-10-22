@@ -60,3 +60,4 @@ pip install numpy
 3. Open **Anaconda Prompt or Terminal**.
 4. Go to the **Code folder<sup>2</sup>** using `cd` command (more info about [Using Terminal](https://docs.anaconda.com/ae-notebooks/user-guide/basic-tasks/apps/use-terminal/?highlight=Using%20Terminal)).
     &#09;<br><sup><sup>2</sup>Code folder: folder with `NGSanalysis.py` file. </sup>
+5. Copy your GenBank (Standard) files (_.gb_) to the `in_gb/` folder, and [FASTA files]((https://en.wikipedia.org/wiki/FASTA_format)) (_.fa_) to the `in_fasta/` folder.
