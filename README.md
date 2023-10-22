@@ -57,7 +57,7 @@ pip install biopython
 pip install numpy
 ```
 ## :clipboard: Instructions to Download and Run IN-NGSa
-1. Download .zip code. Last version: `v1.0.0`. [Download code]([https://github.com](https://github.com/soundslikealloy/NGSAnalysis/archive/refs/tags/v1.0.0.zip)).
+1. Download .zip code. Last version: `v1.0.0`. [Download code]([https://github.com](https://github.com/soundslikealloy/NGSAnalysis/archive/refs/tags/v1.0.0.zip).
 2. Extract files to a destination (:bulb: recommendation - Desktop).
 3. Open **Anaconda Prompt or Terminal**.
 4. Go to the **Code folder<sup>2</sup>** using `cd` command (more info about [Using Terminal](https://docs.anaconda.com/ae-notebooks/user-guide/basic-tasks/apps/use-terminal/?highlight=Using%20Terminal)).
