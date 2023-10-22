@@ -54,5 +54,5 @@ pip install biopython
 ```
 pip install numpy
 ```
-### :clipboard: Instructions to Download and Run IN-NGSa
+## :clipboard: Instructions to Download and Run IN-NGSa
 1. Download .zip code. Last version: `v1.0.0`. [Download code](https://github.com).
