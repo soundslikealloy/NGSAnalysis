@@ -33,7 +33,7 @@ You can install any Python package using the **Anaconda Navigator**. For this, e
 
 ### Installation using pip
 **pip** is the package installer for Python. In general, pip installs the minimal instalation requirements automatically, but not the optionals requirements. To execute **IN-NGSa**, the minimal requirements are adequate. To install the mentioned packages using pip, you have only to write the following command lines in **Anaconda Prompt or Terminal**:
-- Pydna:
-  ```
-  pip install pydna
-  ```
+Pydna:
+```
+pip install pydna
+```
