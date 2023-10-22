@@ -86,10 +86,19 @@ pip install numpy
    ```
    python NGSanalysis.py
    ```
-   **Optional arguments**
+   **Optional arguments:**
    <table border="0">
        <tr><td>-h, --help</b></td><td>Show help message and optional arguments.</b></td></tr>
        <tr><td>-unique</td><td>Only the unique amplicons are considered in the analysis.</td></tr>
        <tr><td>-nofig</td><td>No figure is generated.</td></tr>
        <tr><td>-onlyfig</td><td>Only figure is saved. FASTA and alignment files are not saved.</td></tr>
    </table>
+   **Examples:**
+   ```
+   python NGSanalysis.py -h
+   python NGSanalysis.py -unique
+   python NGSanalysis.py -nofig
+   python NGSanalysis.py -onlyfig
+   python NGSanalysis.py -unique -onlyfig
+   python NGSanalysis.py -unique -nofig
+   ```
