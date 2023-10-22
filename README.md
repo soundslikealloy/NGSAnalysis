@@ -93,7 +93,7 @@ pip install numpy
        <tr><td>-nofig</td><td>No figure is generated.</td></tr>
        <tr><td>-onlyfig</td><td>Only figure is saved. FASTA and alignment files are not saved.</td></tr>
    </table>
-   **Examples:**
+   
    ```
    python NGSanalysis.py -h
    python NGSanalysis.py -unique
