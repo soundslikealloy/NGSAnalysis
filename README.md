@@ -91,4 +91,3 @@ pip install numpy
    -unique       [bool] Only the unique amplicons are considered in the analysis.
    -nofig        [bool] No figure is generated.
    -onlyfig        Only figure is saved. FASTA and alignment files are not saved.
-   
