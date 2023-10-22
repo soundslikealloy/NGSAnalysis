@@ -19,7 +19,7 @@ Spyder is a Python development environment with many features for working with P
 
 ## Installation of Python packages
 A **Python package** is a collection of files containing Python code (i.e., modules). To execute **IN-NGSa**, the following packages must to be installed:
-- **Pydna.** Pydna is a Python package providing code for simulation of the creation of recombinant DNA molecules using molecular biology techniques. Pydna provides simulation of Primer design, PCR, Restriction digestion and so on. For more information and tutorials, click [here](https://pydna.readthedocs.io/index.html).
-- **Pyteomics.** Pyteomics is a collection of lightweight and handly tools for Python taht help to handle various sorts of proteomics data (such as FASTA files). For more information and tutorials, click [here](https://pyteomics.readthedocs.io/en/latest/).
-- **Matlabplotlib.** Matplotlib is a comprehensive library for creating static, animated and interactive visualizations in Python. Fore more information and tutorials, click [here](https://matplotlib.org/).
+- **Pydna.** Pydna is a Python package providing code for simulation of the creation of recombinant DNA molecules using molecular biology techniques. Pydna provides simulation of Primer design, PCR, Restriction digestion and so on. For more info and tutorials, click [here](https://pydna.readthedocs.io/index.html).
+- **Pyteomics.** Pyteomics is a collection of lightweight and handly tools for Python taht help to handle various sorts of proteomics data (such as FASTA files). For more info and tutorials, click [here](https://pyteomics.readthedocs.io/en/latest/).
+- **Matlabplotlib.** Matplotlib is a comprehensive library for creating static, animated and interactive visualizations in Python. Fore more info and tutorials, click [here](https://matplotlib.org/).
 - Bio
