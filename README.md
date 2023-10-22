@@ -8,7 +8,7 @@ _In-silico_ Next Generation Sequencing analysis (IN-NGSa) is a Python-based scri
 ____________________________
 
 ## Before having fun...
-**:warning: To open the links in a new tab: right click on the link + "Open link in new tab".
+**:warning: To open the links in a new tab: right click on the link + "Open link in new tab".**
 
 ### :gear: Anaconda Python installation
 This code is built up in Python. To execute this Python scripts is recommended the installation of **Anaconda**. **Anaconda Python** is a free, open-source platform that allows to write and execute code in the programming language Python ([Python Tutorial](https://docs.python.org/3/tutorial/index.html)). This platform simplifies package installation, managment and development, and alos comes with a large number of libraries/packages that can be you for your projects. To install **Anaconda**, just head to the [Anaconda Documentation website](https://docs.anaconda.com/free/anaconda/install/index.html) and follow the instructions to download teh installer for your operating system.
