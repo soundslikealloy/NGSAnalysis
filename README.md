@@ -11,7 +11,7 @@ ____________________________
 **:warning: To open the links in a new tab: right click on the link + "Open link in new tab". :warning:**
 
 ### :gear: Anaconda Python installation
-This code is built up in Python. To execute Python scripts is recommended the installation of **Anaconda**. **Anaconda Python** is a free, open-source platform that allows to write and execute code in the programming language Python ([Python Tutorial](https://docs.python.org/3/tutorial/index.html)). This platform simplifies package installation, managment and development, and alos comes with a large number of libraries/packages that can be you for your projects. To install **Anaconda**, just head to the [Anaconda Documentation website](https://docs.anaconda.com/free/anaconda/install/index.html) and follow the instructions to download teh installer for your operating system.
+This code is built up in Python. To execute this Python scripts is recommended the installation of **Anaconda**. **Anaconda Python** is a free, open-source platform that allows to write and execute code in the programming language Python ([Python Tutorial](https://docs.python.org/3/tutorial/index.html)). This platform simplifies package installation, managment and development, and alos comes with a large number of libraries/packages that can be you for your projects. To install **Anaconda**, just head to the [Anaconda Documentation website](https://docs.anaconda.com/free/anaconda/install/index.html) and follow the instructions to download teh installer for your operating system.
 
 ### Anaconda Navigator
 Anaconda Navigator is a desktop graphical user interface that allows you to launch applications and efficiently manage conda packages, environments, and channels without using command-line commands. For more info, click [here](https://docs.anaconda.com/free/navigator/).
@@ -57,7 +57,7 @@ pip install biopython
 pip install numpy
 ```
 ## :clipboard: Instructions to Download and Run IN-NGSa
-1. Download .zip code. Last version: `v1.0.0`. [Download code](https://github.com/soundslikealloy/NGSAnalysis/archive/refs/tags/v1.0.0.zip).
+1. Download .zip code. Last version: `v1.0.0`. [Download module](https://github.com/soundslikealloy/NGSAnalysis/archive/refs/tags/v1.0.0.zip).
 2. Extract files to a destination (:bulb: recommendation - Desktop).
 3. Open **Anaconda Prompt or Terminal**.
 4. Go to the **Code folder<sup>2</sup>** using `cd` command (more info about [Using Terminal](https://docs.anaconda.com/ae-notebooks/user-guide/basic-tasks/apps/use-terminal/?highlight=Using%20Terminal)).
