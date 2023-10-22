@@ -28,10 +28,10 @@ A **Python package** is a collection of files containing Python code (i.e., modu
 - **Biopython.** Biopython is a set of freely available tools for Computational Molecular Biology written in Python. For more info and tutorials, click [here](https://biopython.org/).
 - **Numpy.** NumPy is the fundamental package for scientific computing in Python. It is a Python library that provides a multidimensional array object, various derived objects (such as masked arrays and matrices), and an assortment of routines for fast operations on arrays, including mathematical, logical, shape manipulation, sorting, selecting, I/O, discrete Fourier transforms, basic linear algebra, basic statistical operations, random simulation and much more. For more info and tutorials, click [here](https://numpy.org/).
 
-#### Installation using Anaconda Navigator
+### Installation of packages using Anaconda Navigator
 You can install any Python package using the **Anaconda Navigator**. For this, execute the navigator and click to **Environments**. In this section you can install new packages and delete the already installed. For more info, click [here](https://docs.anaconda.com/free/navigator/).
 
-#### Installation using pip
+### Installation of packages using pip
 **pip** is the package installer for Python. In general, pip installs the minimal instalation requirements automatically, but not the optionals requirements. To execute **IN-NGSa**, the minimal requirements are adequate. To install the mentioned packages using pip, you have only to write the following command lines in **Anaconda Prompt or Terminal**:
 
 **Pydna**:
