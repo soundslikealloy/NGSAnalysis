@@ -14,12 +14,22 @@ This code is built up in Python. To execute Python scripts is recommended the in
 ### Anaconda Navigator
 Anaconda Navigator is a desktop graphical user interface that allows you to launch applications and efficiently manage conda packages, environments, and channels without using command-line commands. For more info, click [here](https://docs.anaconda.com/free/navigator/).
 
+### Anaconda Prompt or Terminal
+Anaconda Prompt is a command line interface with Anaconda Distribution. Terminal is a command line interface that comes with macOS and Linux. To open **Anaconda Prompt** in Windows: Click Start, search for _"Anaconda Prompt"_ and click to open. In macOS: use Cmd+Space to open Spotlight Search and type _"Navigator"_ to open the program. Linux-CnetOS: open Applications > System Tools > Terminal.
+
 ### Spyder
 Spyder is a Python development environment with many features for working with Python code, such as a text editor, debugger, profiler, and interactive console. You can execute **Spyder** using the **Anaconda Navigator**. You can find Spyder Tutorials [here](https://www.youtube.com/watch?v=E2Dap5SfXkI&list=PLPonohdiDqg9epClEcXoAPUiK0pN5eRoc&ab_channel=SpyderIDE).
 
-## Installation of Python packages
+## Python packages
 A **Python package** is a collection of files containing Python code (i.e., modules). To execute **IN-NGSa**, the following packages must to be installed:
 - **Pydna.** Pydna is a Python package providing code for simulation of the creation of recombinant DNA molecules using molecular biology techniques. Pydna provides simulation of Primer design, PCR, Restriction digestion and so on. For more info and tutorials, click [here](https://pydna.readthedocs.io/index.html).
 - **Pyteomics.** Pyteomics is a collection of lightweight and handly tools for Python taht help to handle various sorts of proteomics data (such as FASTA files). For more info and tutorials, click [here](https://pyteomics.readthedocs.io/en/latest/).
 - **Matlabplotlib.** Matplotlib is a comprehensive library for creating static, animated and interactive visualizations in Python. Fore more info and tutorials, click [here](https://matplotlib.org/).
-- Bio
+- **Biopython.** Biopython is a set of freely available tools for Computational Molecular Biology written in Python. For more info and tutorials, click [here](https://biopython.org/).
+- **Numpy.** NumPy is the fundamental package for scientific computing in Python. It is a Python library that provides a multidimensional array object, various derived objects (such as masked arrays and matrices), and an assortment of routines for fast operations on arrays, including mathematical, logical, shape manipulation, sorting, selecting, I/O, discrete Fourier transforms, basic linear algebra, basic statistical operations, random simulation and much more. For more info and tutorials, click [here](https://numpy.org/).
+
+### Installation using Anaconda Navigator
+You can install any Python package using the **Anaconda Navigator**. For this, execute the navigator and click to **Environments**. In this section you can install new packages and delete the already installed. For more info, click [here](https://docs.anaconda.com/free/navigator/).
+
+### Installation using pip
+**pip** is the package installer for Python. To use this package, you have only to open the 
