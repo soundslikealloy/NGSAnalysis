@@ -113,87 +113,84 @@ def deleteFiles(fType):
         os.remove(fastafilename)
         os.remove(fastafilealignmentname)
         os.remove(filesave)
-        print('\n>> Only Figure was saved.')
+        print('\n>> Only Mismatches Figure was saved.')
 
 def plotMismatches():
     global filesave
-    if noFigure is False:
-        # Alignment analysis (#mismatches)
-        print('\n>> Plotting in progress...')
-        file_misAnalysis = fastafilealignmentname
-        filesave = file_misAnalysis.replace('out_fasta/', 'out_misAnalysis/')
-        if unique_amplicons is True:
-            filesave = filesave.replace('fa_unique_alignment', 'mismatchTable_unique')
-            figurefilename = 'out_misAnalysis/alignmismatches_unique (' + str(time) + ').png'
-        else:
-            filesave = filesave.replace('fa_alignment', 'mismatchTable')
-            figurefilename = 'out_misAnalysis/alignmismatches (' + str(time) + ').png'
-        filesave = filesave.replace('.fa', '.txt')
-        
-        # Alignment dimensions
-        a = AlignIO.read(file_misAnalysis, 'fasta')
-        n_seq = a.__len__()                                                         # Num of sequences (rows)
-        alig_len = a.get_alignment_length()                                         # Max length of alignment (columns)
-        comb = np.array(list(combinations(np.arange(1, n_seq+1), 2)))
-        num_comb = math.comb(n_seq, 2)
-        indx1 = comb[:,0]
-        indx2 = comb[:,1]
-        
-        # Exporting sequences
-        mId = 'IDs'
-        mseq = np.zeros((1, alig_len))
-        for record in a:
-            iseq = list(record.seq)
-            mseq = np.vstack([mseq, iseq])
-            mId += ' ' + record.id
-        
-        mseq = mseq[1:n_seq+1, :]
-        mId = mId.split()[1:n_seq+1]
-        
-        # Matrix of mismatches
-        mMismatch = np.ones((n_seq, n_seq)) * (-1)
-        for iM in range(0, num_comb):
-            iIndx1 = indx1[iM] - 1
-            iIndx2 = indx2[iM] - 1        
-            mseq1 = mseq[iIndx1]
-            mseq2 = mseq[iIndx2]
-            mismatch_arr = np.compare_chararrays(mseq1, mseq2, "!=", rstrip = True)
-            iMismatch = mismatch_arr.sum()
-            mMismatch[iIndx2, iIndx1] = iMismatch
-        
-        # Save results
-        np.savetxt(filesave, mMismatch, fmt='%.0f')
-        
-        # Plotting
-        nrows = n_seq
-        ncols = n_seq
-        nTicks = np.arange(0.5, n_seq+0.5)
-        Z = mMismatch
-        x = np.arange(ncols + 1)
-        y = np.flip(np.arange(nrows + 1))
-        cmap = colors.LinearSegmentedColormap.from_list('', ['blue', 'yellow'])
-        cmap.set_under('black')
-        mX, mY = np.meshgrid(x, y)
-        
-        fig, ax = plt.subplots()
-        plt.plot(mX, mY, c='k', linewidth = '0.5')
-        plt.plot(np.transpose(mX), np.transpose(mY), c='k', linewidth = '0.5')
-        colormesh = ax.pcolormesh(x, y, Z, cmap = cmap, vmin = 0, vmax = 10)        # Z.min() \\ Z.max()
-        cbar = fig.colorbar(colormesh, label = '# mismatches')
-        plt.xticks(nTicks, mId, rotation=90)
-        plt.yticks(nTicks, np.flip(mId))
-        plt.rcParams.update({'font.size': 45})
-        
-        # Plot size
-        fig.set_figheight(n_seq)
-        fig.set_figwidth(n_seq+10)
-        
-        # Save plot
-        fig.savefig(figurefilename)
-        
-        print('>> Plotting done!')
+    # Alignment analysis (#mismatches)
+    print('\n>> Plotting of mismatches in progress...')
+    file_misAnalysis = fastafilealignmentname
+    filesave = file_misAnalysis.replace('out_fasta/', 'out_misAnalysis/')
+    if unique_amplicons is True:
+        filesave = filesave.replace('fa_unique_alignment', 'mismatchTable_unique')
+        figurefilename = 'out_misAnalysis/alignmismatches_unique (' + str(time) + ').png'
     else:
-        print('\n>> No Figure.')
+        filesave = filesave.replace('fa_alignment', 'mismatchTable')
+        figurefilename = 'out_misAnalysis/alignmismatches (' + str(time) + ').png'
+    filesave = filesave.replace('.fa', '.txt')
+    
+    # Alignment dimensions
+    a = AlignIO.read(file_misAnalysis, 'fasta')
+    n_seq = a.__len__()                                                         # Num of sequences (rows)
+    alig_len = a.get_alignment_length()                                         # Max length of alignment (columns)
+    comb = np.array(list(combinations(np.arange(1, n_seq+1), 2)))
+    num_comb = math.comb(n_seq, 2)
+    indx1 = comb[:,0]
+    indx2 = comb[:,1]
+    
+    # Exporting sequences
+    mId = 'IDs'
+    mseq = np.zeros((1, alig_len))
+    for record in a:
+        iseq = list(record.seq)
+        mseq = np.vstack([mseq, iseq])
+        mId += ' ' + record.id
+    
+    mseq = mseq[1:n_seq+1, :]
+    mId = mId.split()[1:n_seq+1]
+    
+    # Matrix of mismatches
+    mMismatch = np.ones((n_seq, n_seq)) * (-1)
+    for iM in range(0, num_comb):
+        iIndx1 = indx1[iM] - 1
+        iIndx2 = indx2[iM] - 1        
+        mseq1 = mseq[iIndx1]
+        mseq2 = mseq[iIndx2]
+        mismatch_arr = np.compare_chararrays(mseq1, mseq2, "!=", rstrip = True)
+        iMismatch = mismatch_arr.sum()
+        mMismatch[iIndx2, iIndx1] = iMismatch
+    
+    # Save results
+    np.savetxt(filesave, mMismatch, fmt='%.0f')
+    
+    # Plotting
+    nrows = n_seq
+    ncols = n_seq
+    nTicks = np.arange(0.5, n_seq+0.5)
+    Z = mMismatch
+    x = np.arange(ncols + 1)
+    y = np.flip(np.arange(nrows + 1))
+    cmap = colors.LinearSegmentedColormap.from_list('', ['blue', 'yellow'])
+    cmap.set_under('black')
+    mX, mY = np.meshgrid(x, y)
+    
+    fig, ax = plt.subplots()
+    plt.plot(mX, mY, c='k', linewidth = '0.5')
+    plt.plot(np.transpose(mX), np.transpose(mY), c='k', linewidth = '0.5')
+    colormesh = ax.pcolormesh(x, y, Z, cmap = cmap, vmin = 0, vmax = 10)        # Z.min() \\ Z.max()
+    cbar = fig.colorbar(colormesh, label = '# mismatches')
+    plt.xticks(nTicks, mId, rotation=90)
+    plt.yticks(nTicks, np.flip(mId))
+    plt.rcParams.update({'font.size': 45})
+    
+    # Plot size
+    fig.set_figheight(n_seq)
+    fig.set_figwidth(n_seq+10)
+    
+    # Save plot
+    fig.savefig(figurefilename)
+    
+    print('>> Plotting of mismatches done!')
 
 def fileCreation(fType, unique):
     # Lorem ipsum...
@@ -203,13 +200,13 @@ def fileCreation(fType, unique):
 parser = argparse.ArgumentParser(description = 'In-silico NGS analysis for specific set of primers and sequencing region (e.g., 16S rRNA, ITS region...).')
 parser.add_argument('-unique', dest = 'unique_amplicons', default = False, action = 'store_true',
                     help = '[bool] Only the unique amplicons are considered.')
-parser.add_argument('-nofig', dest = 'noFigure', default = False, action = 'store_true',
-                    help = '[bool] No figure is generated.')
-parser.add_argument('-onlyfig', dest = 'figureOnly', default = False, action = 'store_true',
-                    help = '[bool] Only figure is saved. FASTA and alignment files are not saved.')
+parser.add_argument('-nomismatches', dest = 'noMismatches', default = False, action = 'store_true',
+                    help = '[bool] No mismatches analysis is performed.')
+parser.add_argument('-onlymismatches', dest = 'figureOnly', default = False, action = 'store_true',
+                    help = '[bool] Only mismatches figure is saved. FASTA and alignment files are not saved.')
 args = parser.parse_args()
 unique_amplicons = args.unique_amplicons
-noFigure = args.noFigure
+noMismatches = args.noMismatches
 figureOnly = args.figureOnly
 
 # Initialization & definition of variables
@@ -330,7 +327,10 @@ fastafile.close()
 callMUSCLE()
 
 # Create plot
-plotMismatches()
+if noMismatches is False:
+    plotMismatches()
+else:
+    print('\n>> No mismatches analysis.')
 
 # Delete files (if necessary)
 if figureOnly is True:
