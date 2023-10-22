@@ -206,7 +206,7 @@ parser.add_argument('-unique', dest = 'unique_amplicons', default = False, actio
 parser.add_argument('-nofig', dest = 'noFigure', default = False, action = 'store_true',
                     help = '[bool] No figure is generated.')
 parser.add_argument('-onlyfig', dest = 'figureOnly', default = False, action = 'store_true',
-                    help = '[bool] Only figure is saved. FASTA and alingment files are not saved.')
+                    help = '[bool] Only figure is saved. FASTA and alignment files are not saved.')
 args = parser.parse_args()
 unique_amplicons = args.unique_amplicons
 noFigure = args.noFigure
