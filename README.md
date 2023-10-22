@@ -15,7 +15,7 @@ This code is built up in Python. To execute Python scripts is recommended the in
 Anaconda Navigator is a desktop graphical user interface that allows you to launch applications and efficiently manage conda packages, environments, and channels without using command-line commands. For more info, click [here](https://docs.anaconda.com/free/navigator/).
 
 ### Anaconda Prompt or Terminal
-Anaconda Prompt is a command line interface with Anaconda Distribution. Terminal is a command line interface that comes with macOS and Linux. To open **Anaconda Prompt** in Windows: Click Start, search for _"Anaconda Prompt"_ and click to open. In macOS: use Cmd+Space to open Spotlight Search and type _"Navigator"_ to open the program. Linux-CnetOS: open Applications > System Tools > Terminal.
+Anaconda Prompt is a command line interface with Anaconda Distribution. Terminal is a command line interface that comes with macOS and Linux. To open it in **Windows**: Click Start, search for _"Anaconda Prompt"_ and click to open. In **macOS**: use Cmd+Space to open Spotlight Search and type _"Navigator"_ to open the program. In **Linux-CentOS**: open Applications > System Tools > Terminal.
 
 ### Spyder
 Spyder is a Python development environment with many features for working with Python code, such as a text editor, debugger, profiler, and interactive console. You can execute **Spyder** using the **Anaconda Navigator**. You can find Spyder Tutorials [here](https://www.youtube.com/watch?v=E2Dap5SfXkI&list=PLPonohdiDqg9epClEcXoAPUiK0pN5eRoc&ab_channel=SpyderIDE).
@@ -32,4 +32,8 @@ A **Python package** is a collection of files containing Python code (i.e., modu
 You can install any Python package using the **Anaconda Navigator**. For this, execute the navigator and click to **Environments**. In this section you can install new packages and delete the already installed. For more info, click [here](https://docs.anaconda.com/free/navigator/).
 
 ### Installation using pip
-**pip** is the package installer for Python. To use this package, you have only to open the 
+**pip** is the package installer for Python. In general, pip installs the minimal instalation requirements automatically, but not the optionals requirements. To execute **IN-NGSa**, the minimal requirements are adequate. To install the mentioned packages using pip, you have only to write the following command lines in **Anaconda Prompt or Terminal**:
+- Pydna:
+  ```
+  pip install pydna
+  ```
