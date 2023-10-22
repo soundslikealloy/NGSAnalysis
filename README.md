@@ -102,3 +102,4 @@ pip install numpy
    python NGSanalysis.py -unique -onlyfig
    python NGSanalysis.py -unique -nofig
    ```
+9. Get the results of **IN-NGSa**. Amplicons are saved in `out_fasta\` folder as _fa (date).txt_ or _fa_unique (date).txt_. Alignment results using MUSCLE [REF] is saved in `out_fasta\` folder as _fa_alignment (date).txt_ or _fa_unique_alignment (date).txt_. Figure that shows the mismatches between amplicons is saved in `out_misAnalysis\` folder as _alignmentmismatches (date).png_ or _alignmentmismatches_unique (date.png)_. A Table with the number of mismatches is also saved in `out_misAnalysis\` folder as _mismatchTable (date).txt_ or _mismatchTable_unique (date).txt_.
