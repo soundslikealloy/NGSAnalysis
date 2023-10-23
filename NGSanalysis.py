@@ -112,8 +112,8 @@ def deleteFiles(fType):
     if fType == 'FASTA':
         os.remove(fastafilename)
         os.remove(fastafilealignmentname)
-        os.remove(filesave)
-        print('\n>> Only Mismatches Figure was saved.')
+        # os.remove(filesave)
+        print('\n>> Only mismatches results were saved.')
 
 def plotMismatches():
     global filesave
@@ -164,6 +164,8 @@ def plotMismatches():
     np.savetxt(filesave, mMismatch, fmt='%.0f')
     
     # Plotting
+    plt.rcParams.update({'font.size': n_seq*0.5})
+    
     nrows = n_seq
     ncols = n_seq
     nTicks = np.arange(0.5, n_seq+0.5)
@@ -175,13 +177,14 @@ def plotMismatches():
     mX, mY = np.meshgrid(x, y)
     
     fig, ax = plt.subplots()
-    plt.plot(mX, mY, c='k', linewidth = '0.5')
-    plt.plot(np.transpose(mX), np.transpose(mY), c='k', linewidth = '0.5')
+    plt.plot(mX, mY, c='k', linewidth = '1.0')
+    plt.plot(np.transpose(mX), np.transpose(mY), c='k', linewidth = '1.0')
     colormesh = ax.pcolormesh(x, y, Z, cmap = cmap, vmin = 0, vmax = 10)        # Z.min() \\ Z.max()
-    cbar = fig.colorbar(colormesh, label = '# mismatches')
+    cbar = fig.colorbar(colormesh)
+    cbar.ax.tick_params(labelsize = n_seq)
+    cbar.set_label('# mismatches', size = n_seq)
     plt.xticks(nTicks, mId, rotation=90)
     plt.yticks(nTicks, np.flip(mId))
-    plt.rcParams.update({'font.size': 45})
     
     # Plot size
     fig.set_figheight(n_seq)
@@ -203,7 +206,7 @@ parser.add_argument('-unique', dest = 'unique_amplicons', default = False, actio
 parser.add_argument('-nomismatches', dest = 'noMismatches', default = False, action = 'store_true',
                     help = '[bool] No mismatches analysis is performed.')
 parser.add_argument('-onlymismatches', dest = 'figureOnly', default = False, action = 'store_true',
-                    help = '[bool] Only mismatches figure is saved. FASTA and alignment files are not saved.')
+                    help = '[bool] Only mismatches results are saved. FASTA and alignment files are not saved.')
 args = parser.parse_args()
 unique_amplicons = args.unique_amplicons
 noMismatches = args.noMismatches

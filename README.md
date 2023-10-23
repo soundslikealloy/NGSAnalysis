@@ -93,7 +93,7 @@ pip install numpy
        <tr><td>-h, --help</b></td><td>Show help message and optional arguments.</b></td></tr>
        <tr><td>-unique</td><td>Only unique amplicons are considered in the analysis.</td></tr>
        <tr><td>-nomismatches</td><td>No mismatches analysis is performed.</td></tr>
-       <tr><td>-onlymismatches</td><td>Only mismatches figure is saved. FASTA and alignment files are not saved.</td></tr>
+       <tr><td>-onlymismatches</td><td>Only mismatches results are saved. FASTA and alignment files are not saved.</td></tr>
    </table>
    
    ```
