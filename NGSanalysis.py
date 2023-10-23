@@ -243,7 +243,6 @@ for file in glob('in_gb\*.gb'):
     iAmpl_unique = 0 
     iAmpl = 0
     i_ITS_location = []
-    # if unique_amplicons is True: iAmpl_unique = 0 
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     for gb_record in SeqIO.parse(open(file, 'r'), 'genbank'):
         if get_product[0] == 'spacer':
@@ -294,7 +293,6 @@ for file in glob('in_fasta\*.fa'):
     if unique_amplicons is True: dAmpl[file] = []
     iAmpl_unique = 0 
     iAmpl = 0
-    # if unique_amplicons is True: iAmpl_unique = 0 
     id_strain = str(re.findall(r'\(.*?\)', str(file)))
     f = open(file, 'r')
     lines = f.readlines() 
